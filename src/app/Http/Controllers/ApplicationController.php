@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreApplicationRequest;
+use App\Http\Requests\UpdateApplicationRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
-use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
@@ -14,7 +14,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        return ApplicationResource::collection(Application::all());
+        return ApplicationResource::collection(Application::paginate());
     }
 
     /**
@@ -54,9 +54,10 @@ class ApplicationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Application $application)
+    public function update(UpdateApplicationRequest $request, Application $application)
     {
-        //
+        $application->update($request->validated());
+        return ApplicationResource::make($application);
     }
 
     /**
@@ -65,5 +66,6 @@ class ApplicationController extends Controller
     public function destroy(Application $application)
     {
         $application->delete();
+        return response()->noContent();
     }
 }

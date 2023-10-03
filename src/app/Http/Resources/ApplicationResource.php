@@ -19,6 +19,7 @@ class ApplicationResource extends JsonResource
             'dealer_name' => $this->dealer_name,
             'contact_person' => $this->contact_person,
             'credit_amount' => $this->credit_amount,
+            'interest_rate' => $this->interest_rate,
             'credit_reason' => $this->credit_reason,
             'status' => $this->status,
             'bank_id' => $this->bank_id,
