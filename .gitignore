@@ -1,3 +1,5 @@
 /.env
 /.idea
 /src/vendor/*
+/nginx/logs/*
+/postgres/data/*
