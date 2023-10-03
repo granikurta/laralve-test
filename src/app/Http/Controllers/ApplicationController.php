@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreApplicationRequest;
+use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        return "s";
+        return ApplicationResource::collection(Application::all());
     }
 
     /**
@@ -26,9 +28,11 @@ class ApplicationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreApplicationRequest $request)
     {
-        //
+        $application = Application::create($request->validated());
+
+        return new ApplicationResource($application);
     }
 
     /**
@@ -36,7 +40,7 @@ class ApplicationController extends Controller
      */
     public function show(Application $application)
     {
-        //
+        return new ApplicationResource($application);
     }
 
     /**
@@ -60,6 +64,6 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
-        //
+        $application->delete();
     }
 }
